@@ -10,6 +10,9 @@
         "panels/mcp-scan",
         "panels/playground",
         "panels/tracing",
-        "panels/history"
+        "panels/history",
+        "---Configuration---",
+        "config",
+        "plugins"
     ]
 }
