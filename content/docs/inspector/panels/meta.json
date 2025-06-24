@@ -1,0 +1,15 @@
+{
+    "root": true,
+    "title": "MCP Inspector",
+    "icon": "Telescope",
+    "pages": [
+        "---Introduction---",
+        "index",
+        "---Panels---",
+        "explorer",
+        "mcp-scan",
+        "playground",
+        "tracing",
+        "history"
+    ]
+}

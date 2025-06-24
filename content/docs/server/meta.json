@@ -1,0 +1,9 @@
+{
+    "root": true,
+    "title": "Server SDK",
+    "icon": "Server",
+    "pages": [
+        "---Introduction---",
+        "index"
+    ]
+}

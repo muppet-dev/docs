@@ -1,0 +1,83 @@
+---
+title: Quick Start
+description: Getting started with the MCP Inspector
+icon: Album
+---
+
+![Muppet MCP Inspector](/inspector_cover.png)
+
+## Introduction
+
+The Muppet MCP Inspector is a tool designed to help you explore and debug the MCP (Muppet Control Protocol) in a user-friendly way. It provides a graphical interface to visualize the structure and data of your MCP, making it easier to debug and develop applications that use this protocol.
+
+MCP Inspector has different panels -
+
+<Cards>
+
+<Card icon={<Search className="text-purple-300" />} title='Explorer'>
+
+Allows you to explore the tools, prompts and resources available in the MCP with features like scoring, AI generation, and more.
+
+</Card>
+
+<Card icon={<Bot className="text-blue-300" />} title='AI Playground'>
+
+Chat with a LLMs attached to the MCP, allowing you to test and interact with AI models directly.
+
+</Card>
+
+<Card icon={<ShieldCheck />} title='MCP Scan'>
+
+Check for Security issues in your MCP, including vulnerabilities and misconfigurations, and get recommendations for improvements.
+
+</Card>
+
+<Card icon={<Logs className="text-yellow-300" />} title='Tracing'>
+
+Proxy your MCP traffic through the Inspector to see the requests and responses in real-time, helping you debug issues and understand the flow of data.
+
+</Card>
+
+</Cards>
+
+<Callout title="Want to learn more?">
+  Read our in-depth [What is muppet MCP inspector](/docs/inspector/what-is-muppet-mcp-inspector) introduction.
+</Callout>
+
+## Installation
+
+You can start the Muppet MCP Inspector using the `muppet-kit` command line tool.
+
+<Tabs groupId='package-manager' persist items={['npm', 'pnpm', 'yarn', 'bun']} label='Start the Inspector'>
+
+```bash tab="npm"
+npm muppet-kit inspector
+```
+
+```bash tab="pnpm"
+pnpm muppet-kit inspector
+```
+
+```bash tab="yarn"
+yarn muppet-kit inspector
+```
+
+```bash tab="bun"
+bun muppet-kit inspector
+```
+
+</Tabs>
+
+You can also create a config file to customize the Inspector's behavior. Create a file named `muppet.config.js` in your project root with the following content:
+
+```ts
+import { defineInspectorConfig } from "muppet-kit";
+import { cloudflare } from "muppet-kit/tunnel";
+import { openai } from "@ai-sdk/openai";
+
+export default defineInspectorConfig({
+	models: [openai("gpt-4.1-nano"), openai("gpt-4.1-mini")],
+	tunneling: cloudflare(),
+	// ... rest of your configuration
+});
+```
