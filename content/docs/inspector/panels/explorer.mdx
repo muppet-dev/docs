@@ -9,3 +9,30 @@ description: Explore the MCP tools, prompts, and resources
 <div className="dark:block hidden">
 ![Muppet MCP Inspector Explorer Page](/panels/explorer-dark.png)
 </div>
+
+It provides a user-friendly interface to navigate through the various components of the MCP, including tools, prompts, resources, sampling, and roots.
+
+## Features
+
+### Form Tab
+
+Auto generated form from the tools and prompts schema the MCP provides. You can use this form to interact with the MCP by sending requests and receiving responses. This is particularly useful for testing and debugging your MCP setup and try out different edge cases.
+
+### JSON Tab
+
+The JSON tab displays the raw JSON data we got by filling the form. This is useful if you don't wanna fill in the form again and again, or if you wanna share the request data with your team or use it in your code.
+
+### Score Tab
+
+This computes a score based on the tool's or prompt's schema, we got from the MCP. This score can help you understand the quality of your name, description and other metadata, and can be useful for improving your MCP setup.
+
+<div className="dark:hidden">
+![Muppet MCP Inspector Explorer Score Tab](/panels/explorer-score.png)
+</div>
+<div className="dark:block hidden">
+![Muppet MCP Inspector Explorer Score Tab](/panels/explorer-score-dark.png)
+</div>
+
+### Schema Tab
+
+The Schema tab displays the schema of the tool or prompt you are currently viewing. This is basically the JSON schema that we get from the MCP server.

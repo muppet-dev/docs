@@ -8,7 +8,7 @@ icon: Album
 
 ## Introduction
 
-The Muppet MCP Inspector is a tool designed to help you explore and debug the MCP (Muppet Control Protocol) in a user-friendly way. It provides a graphical interface to visualize the structure and data of your MCP, making it easier to debug and develop applications that use this protocol.
+The Muppet MCP Inspector is a tool designed to help you explore and debug the MCP (Muppet Control Protocol) Servers in a user-friendly way. It provides a graphical interface to visualize the structure and data of your MCP, making it easier to debug and develop applications that use this protocol.
 
 MCP Inspector has different panels -
 
@@ -40,10 +40,6 @@ Proxy your MCP traffic through the Inspector to see the requests and responses i
 
 </Cards>
 
-<Callout title="Want to learn more?">
-  Read our in-depth [What is muppet MCP inspector](/docs/inspector/what-is-muppet-mcp-inspector) introduction.
-</Callout>
-
 ## Installation
 
 You can start the Muppet MCP Inspector using the `muppet-kit` command line tool.
@@ -68,7 +64,33 @@ bun muppet-kit inspector
 
 </Tabs>
 
-You can also create a config file to customize the Inspector's behavior. Create a file named `muppet.config.js` in your project root with the following content:
+You can also use the Inspector as a standalone package if you prefer
+
+<Tabs groupId='package-manager' persist items={['npm', 'pnpm', 'yarn', 'bun']} label='Start the Inspector'>
+
+```bash tab="npm"
+npm @muppet-kit/inspector
+```
+
+```bash tab="pnpm"
+pnpm @muppet-kit/inspector
+```
+
+```bash tab="yarn"
+yarn @muppet-kit/inspector
+```
+
+```bash tab="bun"
+bun @muppet-kit/inspector
+```
+
+</Tabs>
+
+Once you run the command, the Inspector will start and you can access it in your browser at `http://localhost:3553`. You can also deploy the Inspector to a server or cloud platform for remote access.
+
+## Configuration
+
+Create a file named `muppet.config.js` in your project root directory. This file will contain the configuration for the MCP Inspector, including the models you want to use and any tunneling options.
 
 ```ts
 import { defineInspectorConfig } from "muppet-kit";
@@ -81,3 +103,7 @@ export default defineInspectorConfig({
 	// ... rest of your configuration
 });
 ```
+
+<Callout title="Want to learn more?">
+  Checkout the [Inspector Configuration Guide](/docs/inspector/config) for more details on how to customize the Inspector.
+</Callout>

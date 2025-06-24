@@ -9,3 +9,20 @@ description: Proxy the conversation between the MCP and the LLM
 <div className="dark:block hidden">
 ![Muppet MCP Inspector Tracing Page](/panels/tracing-dark.png)
 </div>
+
+This can work as a proxy between your MCP Client (usually a LLM) and the MCP Server, allowing you to trace the conversation between them. This is useful for debugging and understanding how the MCP is being used by the LLM, and can help you identify issues or improve your MCP setup.
+
+This panels capabilities are similar to the [History Panel](/docs/inspector/panels/history), but it shines when you want to see the params the LLM used or why did the MCP server returned an error.
+
+## Tunneling
+
+You can connect with remote MCP Clients using the tunneling feature. This will generate a unique URL that you can share with the remote client, allowing them to connect to your MCP Inspector and send requests through it. This is useful for debugging and testing MCP setups that are not on your local machine. Using this you can even connect local/stdio transport based MCP Servers with remote LLMs or MCP Clients.
+
+<div className="dark:hidden">
+![Muppet MCP Inspector Tracing Tunneling Dialog](/panels/tracing-tunneling.png)
+</div>
+<div className="dark:block hidden">
+![Muppet MCP Inspector Tracing Tunneling Dialog](/panels/tracing-tunneling-dark.png)
+</div>
+
+You can using either Cloudflare or Ngrok for tunneling. Checkout the [Muppet Inspector Config](/docs/inspector/config) for more details on how to configure tunneling.

@@ -2,3 +2,26 @@
 title: muppet.config.js
 description: Configuration file for the Muppet MCP Inspector
 ---
+
+```ts
+// muppet.config.js
+import { defineInspectorConfig } from "muppet-kit";
+import { cloudflare } from "muppet-kit/tunnel";
+import { openai } from "@ai-sdk/openai";
+
+export default defineInspectorConfig({
+	models: [openai("gpt-4.1-nano"), openai("gpt-4.1-mini")],
+	tunneling: cloudflare(),
+	// ... rest of your configuration
+});
+```
+
+Just create a `muppet.config.js` or `muppet.config.ts` file in your project root directory, and default export the configuration using `defineInspectorConfig`. This file will be used by the Inspector to load your configuration and start the server with the specified models and tunneling options. You can also pass additional options to the this, see the full list of options below.
+
+<AutoTypeTable
+  name="config"
+  type={`
+import { InspectorConfig } from "@muppet-kit/shared"
+export type config = InspectorConfig;
+`}
+/>
