@@ -1,9 +1,13 @@
 {
-    "root": true,
-    "title": "Server SDK",
-    "icon": "Server",
-    "pages": [
-        "---Introduction---",
-        "index"
-    ]
+  "title": "muppet",
+  "icon": "Server",
+  "root": true,
+  "pages": [
+    "index",
+    "./quickstart",
+    "./runtimes",
+    "examples",
+    "./concepts",
+    "./openapi"
+  ]
 }

@@ -1,0 +1,7 @@
+{
+    "title": "OpenAPI",
+    "pages": [
+        "./hono-openapi/index.mdx",
+        "./openapi-specs/index.mdx"
+    ]
+}

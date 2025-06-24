@@ -1,0 +1,10 @@
+{
+    "title": "Concepts",
+    "pages": [
+        "./resources/index",
+        "./prompts/index",
+        "./tools/index",
+        "./muppet/index",
+        "./transports/index"
+    ]
+}
