@@ -5,6 +5,7 @@ import * as TabsComponents from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import * as icons from "lucide-react";
 import type { MDXComponents } from "mdx/types";
+import { YoutubePlayer } from "./components/YoutubePlayer";
 
 const generator = createGenerator();
 
@@ -18,6 +19,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     AutoTypeTable: (props) => (
       <AutoTypeTable {...props} generator={generator} />
     ),
+    YoutubePlayer,
     ...components,
   };
 }

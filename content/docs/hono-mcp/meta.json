@@ -4,6 +4,10 @@
     "icon": "Flame",
     "pages": [
         "---Introduction---",
-        "index"
+        "index",
+        "---Tutorials---",
+        "stateless",
+        "stateful",
+        "auth"
     ]
 }
