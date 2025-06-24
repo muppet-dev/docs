@@ -1,0 +1,9 @@
+{
+    "root": true,
+    "title": "@hono/mcp",
+    "icon": "Flame",
+    "pages": [
+        "---Introduction---",
+        "index"
+    ]
+}

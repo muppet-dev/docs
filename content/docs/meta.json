@@ -1,6 +1,7 @@
 {
     "pages": [
         "inspector",
-        "server"
+        "server",
+        "hono-mcp"
     ]
 }
