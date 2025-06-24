@@ -14,7 +14,7 @@ Examples for all these transports are available [here](/docs/examples). You can 
 
 The `StdioServerTransport` is a transport layer that allows you to connect your server to LLMs using standard input and output streams. This transport layer is useful for running your server in environments where you don't have access to a network, such as in a local development environment or in a container or a private network.
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/transports/transport-stdio.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/transports/transport-stdio.txt", "utf-8")} />
 
 This does blocks your stdio streams, so you won't be able to use `console.log` or other stdio functions while the server is running. `muppet` has a built-in logger that you can use to log messages. You can use the `logger` prop to set the logger for your server. It uses `pino` under the hood, so you can use any `pino` compatible logger.
 
@@ -34,7 +34,7 @@ This will store all the logs in the `muppet.log` file.
 
 The `SSEServerTransport` is a transport layer that allows you to connect your server to LLMs using Server-Sent Events (SSE). This transport layer only runs in `nodejs` runtime.
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/transports/transport-sse.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/transports/transport-sse.txt", "utf-8")} />
 
 There is a better way, which is to use [`SSEHonoTransport`](#sse-hono-transport) which runs on all runtimes which support streaming with hono.
 
@@ -42,4 +42,4 @@ There is a better way, which is to use [`SSEHonoTransport`](#sse-hono-transport)
 
 This transport layer is similar to `SSEServerTransport`, but it uses the `hono`'s streaming capabilities to send the response. This makes running this transport layer on all runtimes which support streaming, such as `nodejs`, `deno`, `bun`, and `cloudflare workers`. You can learn more about this in the [hono documentation](https://hono.dev/docs/helpers/streaming).
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/transports/transport-hono.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/transports/transport-hono.txt", "utf-8")} />

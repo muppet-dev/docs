@@ -20,22 +20,22 @@ URIs of these resources typically looks like this `[protocol]:[path]/{[variable]
 
 The protocol is used to identify the fetcher that would be used to get data. You can see the example to define the fetcher [here]().
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/resources/example-dynamic.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/resources/example-dynamic.txt", "utf-8")} />
 
 You can also define completions for dynamic resources. This allows you to provide the LLM with a list of possible values for the variable in the URI. For example, if you have a resource that fetches weather data for a specific city, you can provide a list of cities as completions. Here is an example of how to define completions for a dynamic resource
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/resources/example-completions.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/resources/example-completions.txt", "utf-8")} />
 
 ## Static Resources
 
 Unlike dynamic resources, static resources have a fixed URI. This means that the resource is always available at the same location, regardless of the input provided by the LLM. The also don't have the `completion` function.
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/resources/example-static.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/resources/example-static.txt", "utf-8")} />
 
 ## Defining Resource Fetcher
 
 You can define a fetcher for your resource using the `resources` prop in your `muppet` instance. The fetcher is a function that takes the URI of the resource and returns the data for that resource. The fetcher can be an async function, which allows you to fetch data from APIs or databases.
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/resources/example-fetcher.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/resources/example-fetcher.txt", "utf-8")} />
 
 <Callout>Fetcher may return multiple resources in response. This could be used, for example, to return a list of files inside a directory when the directory is read.</Callout>

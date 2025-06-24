@@ -11,7 +11,7 @@ import fs from 'fs';
 
 Now that you have defined your tools and prompts, you can create the MCP instance of your app. This is done using the `muppet` function. This function takes the `app` instance and an configurtions object as arguments.
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/muppet/example-muppet.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/muppet/example-muppet.txt", "utf-8")} />
 
 The `muppet` function takes the following configurations
 
@@ -46,6 +46,6 @@ Now let's create a bridge between the LLM and your server. This is done using th
 
 This takes in your muppet instance and the transport layer you wanna use.
 
-<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/muppet/example-bridge.ts", "utf-8")} />
+<DynamicCodeBlock lang="ts" code={fs.readFileSync("./content/docs/server/concepts/muppet/example-bridge.txt", "utf-8")} />
 
 You can check out other transport layers [here](/docs/concepts/transports).
