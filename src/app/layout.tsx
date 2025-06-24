@@ -3,17 +3,61 @@ import { RootProvider } from "fumadocs-ui/provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
+import InspectorCoverImage from "../../public/inspector_cover.png";
 
 const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    template: "%s | Muppet",
-    default: "Muppet - The MCP Development Platform",
-  },
-};
+export function generateMetadata(): Metadata {
+  const title = {
+    template: "%s | muppet",
+    default: "muppet - Toolkit for building MCPs",
+  };
+  const description =
+    "Muppet is an open toolkit which standardizes the way you build, test, and deploy your MCPs. If MCP is the USB-C port for AI applications, think of Muppet as the assembly line that produces the USB-C port.";
+
+  return {
+    title,
+    description,
+    keywords: [
+      "MCP",
+      "MCPs",
+      "MCP toolkit",
+      "MCP development",
+      "Honojs",
+      "toolkit",
+      "javascript",
+      "typescript",
+      "hono",
+    ],
+    metadataBase: new URL("https://muppet.dev"),
+    category: "education",
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: {
+        width: InspectorCoverImage.width,
+        height: InspectorCoverImage.height,
+        url: InspectorCoverImage.src,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      images: {
+        width: InspectorCoverImage.width,
+        height: InspectorCoverImage.height,
+        url: InspectorCoverImage.src,
+      },
+      siteName: "Muppet Docs",
+      url: "/",
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

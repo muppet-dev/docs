@@ -1,7 +1,7 @@
 {
     "root": true,
     "title": "@hono/mcp",
-    "icon": "Flame",
+    "icon": "Package",
     "pages": [
         "---Introduction---",
         "index",
