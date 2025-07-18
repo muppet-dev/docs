@@ -1,13 +1,12 @@
 {
-  "title": "muppet",
+  "title": "Muppet SDK",
   "icon": "Server",
   "root": true,
   "pages": [
     "index",
-    "./quickstart",
-    "./runtimes",
+    "quickstart",
+    "./transports",
     "examples",
-    "./concepts",
-    "./openapi"
+    "./concepts"
   ]
 }

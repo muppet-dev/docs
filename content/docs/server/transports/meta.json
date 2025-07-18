@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "index",
+    "stdio",
+    "sse",
+    "streaming"
+  ]
+}

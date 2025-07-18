@@ -1,5 +1,5 @@
 ---
-title: For Server Developers
+title: Quickstart
 description: Get started building your own server to use in Claude for Desktop and other clients.
 ---
 
@@ -38,11 +38,8 @@ Let's get started with building our weather server! [You can find the complete c
 1. Let's create and setup our project
 
    ```bash
-   # Initialize a new hono project, here we are using nodejs but you can use any other template
-   pnpm create hono@latest my-mcp -i -t nodejs -p pnpm
-
-   # Install dependencies
-   pnpm add muppet @modelcontextprotocol/sdk @hono/standard-validator
+   # Initialize a new muppet project, here we will be using the Stdio Transport for simplicity
+   pnpm create muppet@latest my-mcp -i -t stdio -r nodejs -p pnpm
 
    # You can use any validation lib that supports Standard Schema
    pnpm add zod
@@ -55,14 +52,7 @@ Let's get started with building our weather server! [You can find the complete c
 
     ```ts
     import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-    import { Hono } from 'hono';
-    import {
-      type ToolResponseType,
-      bridge,
-      describeTool,
-      mValidator,
-      muppet,
-    } from "muppet";
+    import { Muppet } from "muppet";
     import z from "zod";
     ```
 </Step>
@@ -149,77 +139,74 @@ Let's get started with building our weather server! [You can find the complete c
     Now let's implement the tool execution logic. This is where we define how our tools will work.
 
     ```ts
-    const app = new Hono();
+    const mcp = new Muppet({
+      name: "weather",
+      version: "1.0.0",
+    });
 
     // Define the get-alerts tool
-    app.post(
-      "/get-alerts",
-      describeTool({
+    mcp.tool(
+      {
         name: "get-alerts",
         description: "Get weather alerts for a state",
-      }),
-      mValidator(
-        "json",
-        z.object({
+        inputSchema: z.object({
           state: z
             .string()
             .length(2)
             .describe("Two-letter state code (e.g. CA, NY)"),
         }),
-      ),
+      },
       async (c) => {
-        const { state } = c.req.valid("json");
+        const { state } = c.message.params.arguments;
 
         const stateCode = state.toUpperCase();
         const alertsUrl = `${NWS_API_BASE}/alerts?area=${stateCode}`;
         const alertsData = await makeNWSRequest<AlertsResponse>(alertsUrl);
 
         if (!alertsData) {
-          return c.json<ToolResponseType>({
+          return {
             content: [
               {
                 type: "text",
                 text: "Failed to retrieve alerts data",
               },
             ],
-          });
+          };
         }
 
-        const features = alertsData.features || [];
+        const features = alertsData.features;
         if (features.length === 0) {
-          return c.json<ToolResponseType>({
+          return {
             content: [
               {
                 type: "text",
                 text: `No active alerts for ${stateCode}`,
               },
             ],
-          });
+          };
         }
 
         const formattedAlerts = features.map(formatAlert);
-        const alertsText = `Active alerts for ${stateCode}:\n\n${formattedAlerts.join("\n")}`;
+        const alertsText = `Active alerts for ${stateCode}:\n\n${formattedAlerts.join(
+          "\n",
+        )}`;
 
-        return c.json<ToolResponseType>({
+        return {
           content: [
             {
               type: "text",
               text: alertsText,
             },
           ],
-        });
+        };
       },
     );
 
-    app.post(
-      "/get-forecast",
-      describeTool({
+    mcp.tool(
+      {
         name: "get-forecast",
         description: "Get weather forecast for a location",
-      }),
-      mValidator(
-        "json",
-        z.object({
+        inputSchema: z.object({
           latitude: z
             .number()
             .min(-90)
@@ -231,106 +218,100 @@ Let's get started with building our weather server! [You can find the complete c
             .max(180)
             .describe("Longitude of the location"),
         }),
-      ),
+      },
       async (c) => {
-        const { latitude, longitude } = c.req.valid("json");
+        const { latitude, longitude } = c.message.params.arguments;
 
         // Get grid point data
-        const pointsUrl = `${NWS_API_BASE}/points/${latitude.toFixed(4)},${longitude.toFixed(4)}`;
+        const pointsUrl = `${NWS_API_BASE}/points/${latitude.toFixed(4)},${longitude.toFixed(
+          4,
+        )}`;
         const pointsData = await makeNWSRequest<PointsResponse>(pointsUrl);
 
         if (!pointsData) {
-          return c.json<ToolResponseType>({
+          return {
             content: [
               {
                 type: "text",
                 text: `Failed to retrieve grid point data for coordinates: ${latitude}, ${longitude}. This location may not be supported by the NWS API (only US locations are supported).`,
               },
             ],
-          });
+          };
         }
 
         const forecastUrl = pointsData.properties?.forecast;
         if (!forecastUrl) {
-          return c.json<ToolResponseType>({
+          return {
             content: [
               {
                 type: "text",
                 text: "Failed to get forecast URL from grid point data",
               },
             ],
-          });
+          };
         }
 
         // Get forecast data
         const forecastData = await makeNWSRequest<ForecastResponse>(forecastUrl);
         if (!forecastData) {
-          return c.json<ToolResponseType>({
+          return {
             content: [
               {
                 type: "text",
                 text: "Failed to retrieve forecast data",
               },
             ],
-          });
+          };
         }
 
         const periods = forecastData.properties?.periods || [];
         if (periods.length === 0) {
-          return c.json<ToolResponseType>({
+          return {
             content: [
               {
                 type: "text",
                 text: "No forecast periods available",
               },
             ],
-          });
+          };
         }
 
         // Format forecast periods
         const formattedForecast = periods.map((period: ForecastPeriod) =>
           [
             `${period.name || "Unknown"}:`,
-            `Temperature: ${period.temperature || "Unknown"}°${period.temperatureUnit || "F"}`,
+            `Temperature: ${period.temperature || "Unknown"}°${
+              period.temperatureUnit || "F"
+            }`,
             `Wind: ${period.windSpeed || "Unknown"} ${period.windDirection || ""}`,
             `${period.shortForecast || "No forecast available"}`,
             "---",
           ].join("\n"),
         );
 
-        const forecastText = `Forecast for ${latitude}, ${longitude}:\n\n${formattedForecast.join("\n")}`;
+        const forecastText = `Forecast for ${latitude}, ${longitude}:\n\n${formattedForecast.join(
+          "\n",
+        )}`;
 
-        return c.json<ToolResponseType>({
+        return {
           content: [
             {
               type: "text",
               text: forecastText,
             },
           ],
-        });
+        };
       },
     );
 </Step>
 <Step>
-5. Running the server
+5. Transport
 
-    Finally, implement the main function to run the server
+    Finally, connect the transport
 
     ```ts
-    muppet(app, {
-      name: "weather",
-      version: "1.0.0",
-    }).then((mcp) => {
-      if (!mcp) {
-        throw new Error("MCP not initialized");
-      }
-
-      // Bridge the mcp with the transport
-      bridge({
-        mcp,
-        transport: new StdioServerTransport(),
-      });
-    });
+    // Connect the mcp with the transport
+    mcp.connect(new StdioServerTransport());
     ```
 
     Now depending upon the client you can either build the server or run it directly in dev mode. For simplicity we will just build the server. The command for this will depend on the runtime you are using. For example, if you are using nodejs, you can follow these steps
